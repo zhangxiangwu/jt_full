@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jt.mapper.OrderMapper">
+
+	<!-- <select id="findOrderById" resultMap="orderMP"> select * from tb_order 
+		where order_id = #{id} </select> <resultMap type="Order" id="orderMP" autoMapping="true"> 
+		<id column="order_id" property="orderId" /> <association property="orderShipping" 
+		javaType="OrderShipping" column="order_id" select="findOrderShippings"> </association> 
+		<collection property="orderItems" ofType="OrderItem" column="order_id" select="findOrderItems"> 
+		</collection> </resultMap> <select id="findOrderShippings" resultType="OrderShipping"> 
+		select * from tb_order_shipping where order_id = #{id} </select> <select 
+		id="findOrderItems" resultType="OrderItem"> select * from tb_order_item where 
+		order_id = #{id} </select> -->
+
+	<select id="findOrderById" resultMap="orderMP">
+		select * from tb_order where order_id = #{id}
+	</select>
+
+	<resultMap type="Order" id="orderMP" autoMapping="true">
+
+		<id column="order_id" property="orderId"></id>
+
+		<association javaType="OrderShipping"
+			select="findOrderShippings" property="orderShipping"
+			column="order_id">
+		</association>
+
+		<collection property="orderItems" ofType="OrderItem"
+			select="findOrderItems" column="order_id">
+		</collection>
+
+	</resultMap>
+
+	<select id="findOrderShippings" resultType="OrderShipping">
+		select * from tb_order_shipping where order_id = #{id}
+	</select>
+
+	<select id="findOrderItems" resultType="OrderItem">
+		select * from tb_order_item where order_id = #{id}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
